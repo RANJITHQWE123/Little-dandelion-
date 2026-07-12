@@ -1,0 +1,6 @@
+{
+  "name": "The Little Dandelion Café",
+  "description": "An elegant, sophisticated, and welcoming digital presence for The Little Dandelion—a third-generation Italian-American café in New Haven's Little Italy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
