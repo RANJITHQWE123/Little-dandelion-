@@ -37,17 +37,22 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
         if (parsed && Array.isArray(parsed.menuItems)) {
           parsed.menuItems = parsed.menuItems.map((item: any) => {
             if (item.image && typeof item.image === 'string') {
-              if (item.image.startsWith('/src/assets/')) {
+              let currentImage = item.image;
+              let updatedImage = currentImage;
+
+              if (updatedImage.startsWith('/src/assets/')) {
+                updatedImage = updatedImage.replace('/src/assets/', '/assets/');
+              } else if (updatedImage.startsWith('src/assets/')) {
+                updatedImage = '/' + updatedImage.replace('src/assets/', 'assets/');
+              } else if (updatedImage.startsWith('assets/')) {
+                updatedImage = '/' + updatedImage;
+              }
+
+              if (updatedImage !== currentImage) {
                 wasMigrated = true;
                 return {
                   ...item,
-                  image: item.image.replace('/src/assets/', 'assets/')
-                };
-              } else if (item.image.startsWith('/assets/')) {
-                wasMigrated = true;
-                return {
-                  ...item,
-                  image: item.image.replace('/assets/', 'assets/')
+                  image: updatedImage
                 };
               }
             }
