@@ -20,7 +20,7 @@ function resolveMenuImageSrc(image?: string) {
   if (/^(https?:|data:)/i.test(value)) return value;
 
   const filename = value.replace(/\\/g, '/').split('/').filter(Boolean).pop();
-  return filename ? \`/assets/images/\${filename}\` : undefined;
+  return filename ? `/assets/images/${filename}` : undefined;
 }
 
 export default function Menu() {
