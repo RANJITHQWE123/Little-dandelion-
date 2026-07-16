@@ -13,14 +13,27 @@ const CATEGORIES = [
   { id: 'sweet', name: 'Sweet Treats', icon: Cookie }
 ];
 
-function resolveMenuImageSrc(image?: string) {
-  if (!image) return undefined;
+const FALLBACK_IMAGE_BY_CATEGORY: Record<string, string> = {
+  coffee: '/assets/images/dandelion_espresso_shot_1783629595611.jpg',
+  tea: '/assets/images/dandelion_hot_tea_1783629649611.jpg',
+  pastry: '/assets/images/dandelion_display_pastries_1783627772746.jpg',
+  specialty: '/assets/images/dandelion_grilled_cheese_1783627781365.jpg',
+  sweet: '/assets/images/dandelion_chocolate_brownie_1783627825285.jpg'
+};
+
+function getFallbackMenuImage(category?: string) {
+  return FALLBACK_IMAGE_BY_CATEGORY[category ?? ''] ?? FALLBACK_IMAGE_BY_CATEGORY.coffee;
+}
+
+function resolveMenuImageSrc(image?: string, category?: string) {
+  const fallback = getFallbackMenuImage(category);
+  if (!image) return fallback;
 
   const value = image.trim();
   if (/^(https?:|data:)/i.test(value)) return value;
 
   const filename = value.replace(/\\/g, '/').split('/').filter(Boolean).pop();
-  return filename ? `/assets/images/${filename}` : undefined;
+  return filename ? `/assets/images/${filename}` : fallback;
 }
 
 export default function Menu() {
@@ -225,21 +238,18 @@ export default function Menu() {
                 className="bg-transparent hover:bg-brand-cream/15 p-6 border border-brand-gold/25 hover:border-brand-brown transition-all duration-300 flex flex-col justify-between group h-full rounded-xs relative"
               >
                 <div>
-                  {/* Image or Category Icon Holder */}
+                  {/* Menu Image */}
                   <div className="relative rounded-xs overflow-hidden mb-5 bg-brand-cream aspect-video flex items-center justify-center border border-brand-brown/5">
-                    {item.image ? (
-                      <img
-                        src={resolveMenuImageSrc(item.image)}
-                        alt={item.name}
-                        className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                        referrerPolicy="no-referrer"
-                      />
-                    ) : (
-                      <div className="flex flex-col items-center justify-center p-6 text-brand-brown/30">
-                        <Coffee className="h-8 w-8 mb-1.5 stroke-1" />
-                        <span className="text-[9px] uppercase tracking-[0.15em] font-bold">{item.category}</span>
-                      </div>
-                    )}
+                    <img
+                      src={resolveMenuImageSrc(item.image, item.category)}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                      referrerPolicy="no-referrer"
+                      onError={(event) => {
+                        event.currentTarget.onerror = null;
+                        event.currentTarget.src = getFallbackMenuImage(item.category);
+                      }}
+                    />
                     
                     {/* Best Seller Badge */}
                     {item.isBestSeller && (
