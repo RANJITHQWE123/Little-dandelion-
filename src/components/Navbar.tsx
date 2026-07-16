@@ -3,9 +3,10 @@ import { Coffee, Phone, MessageSquare, Menu as MenuIcon, X } from 'lucide-react'
 
 interface NavbarProps {
   onTextClick: () => void;
+  onAdminClick?: () => void;
 }
 
-export default function Navbar({ onTextClick }: NavbarProps) {
+export default function Navbar({ onTextClick, onAdminClick }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
@@ -36,7 +37,9 @@ export default function Navbar({ onTextClick }: NavbarProps) {
           <div className="flex items-center gap-6">
             <div 
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              onDoubleClick={() => onAdminClick && onAdminClick()}
               className="flex items-center gap-2 cursor-pointer group"
+              title="Double click for Admin CMS"
             >
               <div className="bg-brand-brown text-[#F5F1E8] p-2 rounded-xs group-hover:bg-brand-gold group-hover:text-brand-brown transition-all duration-300">
                 <Coffee className="h-4.5 w-4.5" />

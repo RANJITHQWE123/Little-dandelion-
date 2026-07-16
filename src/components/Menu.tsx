@@ -1,212 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Coffee, Leaf, Croissant, Utensils, CupSoda, Cookie } from 'lucide-react';
-import { MenuItem } from '../types';
-
-export const MENU_ITEMS: MenuItem[] = [
-  // Coffee Creations
-  {
-    id: 'c1',
-    name: 'Espresso',
-    price: 3.25,
-    category: 'coffee',
-    description: 'Rich, intense, double-shot of our heritage espresso blend. Perfectly extracted with thick hazelnut crema.',
-    image: '/src/assets/images/dandelion_espresso_shot_1783629595611.jpg',
-    tags: ['Double Shot', 'Traditional']
-  },
-  {
-    id: 'c2',
-    name: 'Cortado',
-    price: 3.75,
-    category: 'coffee',
-    description: 'Equal parts double shot espresso and steamed silky milk, cutting the acidity beautifully.',
-    image: '/src/assets/images/dandelion_cortado_glass_1783629608541.jpg',
-    tags: ['Balanced', 'Barista Fav']
-  },
-  {
-    id: 'c3',
-    name: 'Café Latte',
-    price: 4.75,
-    category: 'coffee',
-    description: 'Our house espresso with velvety steamed milk and a delicate layer of microfoam.',
-    image: '/src/assets/images/dandelion_cafe_latte_1783629617581.jpg',
-    tags: ['Smooth', 'Classic']
-  },
-  {
-    id: 'c4',
-    name: 'Dandelion Signature Latte',
-    price: 5.50,
-    category: 'coffee',
-    description: 'Infused with organic local wildflower honey, French lavender, and a dash of dandelion root powder. Topped with blowing dandelion latte art.',
-    isBestSeller: true,
-    image: '/src/assets/images/dandelion_cafe_latte_1783629617581.jpg',
-    tags: ['Signature', 'Latte Art']
-  },
-  {
-    id: 'c5',
-    name: 'Cappuccino',
-    price: 4.50,
-    category: 'coffee',
-    description: 'Double espresso with equal parts rich steamed milk and a luxurious cushion of dense foam.',
-    image: '/src/assets/images/dandelion_cappuccino_froth_1783629627490.jpg',
-    tags: ['Frothy', 'Classic']
-  },
-  {
-    id: 'c6',
-    name: 'Flat White',
-    price: 4.50,
-    category: 'coffee',
-    description: 'Rich ristretto shots finished with micro-textured steamed milk for a dense, velvety mouthfeel.',
-    image: '/src/assets/images/dandelion_flat_white_1783629660503.jpg',
-    tags: ['Velvety', 'Bold']
-  },
-
-  // Tea Selection
-  {
-    id: 't1',
-    name: 'Loose Leaf Hot Tea',
-    price: 3.50,
-    category: 'tea',
-    description: 'Premium organic whole leaves. Select from Earl Grey, Chamomile Lavender, or Jasmine Green.',
-    image: '/src/assets/images/dandelion_hot_tea_1783629649611.jpg',
-    tags: ['Organic', 'Hot']
-  },
-  {
-    id: 't2',
-    name: 'Ceremonial Matcha Latte',
-    price: 5.25,
-    category: 'tea',
-    description: 'Whip-whisked Uji stone-ground matcha blended with creamy steamed oat milk and organic vanilla.',
-    image: '/src/assets/images/dandelion_dirty_matcha_1783629639993.jpg',
-    tags: ['Antioxidants', 'Oat Milk']
-  },
-  {
-    id: 't3',
-    name: 'Chai Latte',
-    price: 4.75,
-    category: 'tea',
-    description: 'Sweet & spicy black tea concentrate infused with fresh ginger, cardamom, clove, and steamed milk.',
-    image: '/src/assets/images/dandelion_hot_tea_1783629649611.jpg',
-    tags: ['Spicy', 'Comfort']
-  },
-  {
-    id: 't4',
-    name: 'Dirty Matcha',
-    price: 5.95,
-    category: 'tea',
-    description: 'Ceremonial green matcha latte with a robust double-shot overlay of house espresso.',
-    image: '/src/assets/images/dandelion_dirty_matcha_1783629639993.jpg',
-    tags: ['Energy Boost', 'Layered']
-  },
-
-  // Food & Sandwiches (Matches the chalkboard menu exactly!)
-  {
-    id: 's1',
-    name: 'Egg & Cheese Bagel / Sourdough',
-    price: 8.50,
-    category: 'specialty',
-    description: 'Toasted plain, everything, or sesame bagel, croissant, or sourdough bread stuffed with organic eggs, melted Swiss, Cheddar, or Provolone cheese.',
-    image: '/src/assets/images/dandelion_egg_cheese_bagel_1783627790275.jpg',
-    isBestSeller: true,
-    tags: ['Breakfast Classic', 'Custom Bread']
-  },
-  {
-    id: 's2',
-    name: 'Egg & Cheese w/ Summer Sausage',
-    price: 9.50,
-    category: 'specialty',
-    description: 'Our standard toasted breakfast bagel sandwich packed with fluffy scrambled organic eggs, melted cheese, and savory sliced summer sausage.',
-    image: '/src/assets/images/dandelion_egg_sausage_bagel_1783628802341.jpg',
-    tags: ['Savory', 'Summer Sausage']
-  },
-  {
-    id: 's3',
-    name: 'Gourmet Grilled Cheese',
-    price: 8.50,
-    category: 'specialty',
-    description: 'Artisanal sourdough stuffed with a premium melted blend of sharp white cheddar and provolone cheese, toasted beautifully golden-brown.',
-    image: '/src/assets/images/dandelion_grilled_cheese_1783627781365.jpg',
-    isBestSeller: true,
-    tags: ['Comfort', 'Vegetarian']
-  },
-  {
-    id: 's4',
-    name: 'Croque Monsieur',
-    price: 6.50,
-    category: 'specialty',
-    description: 'Classic French style grilled ham and cheese sandwich on rustic toasted bread, with bubbly melted Gruyère cheese.',
-    image: '/src/assets/images/dandelion_croque_monsieur_1783628811252.jpg',
-    tags: ['French Classic', 'Warm ham & cheese']
-  },
-
-  // Pastries & Bakes
-  {
-    id: 'p1',
-    name: 'Sweet Croissant',
-    price: 3.75,
-    category: 'pastry',
-    description: 'Buttery, flaky, golden French pastry baked fresh daily by our local partner, SoNo Baking Company.',
-    image: '/src/assets/images/fresh_pastries_tray_1783625868185.jpg',
-    tags: ['Fresh Daily', 'SoNo Baking']
-  },
-  {
-    id: 'p2',
-    name: 'Slice of Cake',
-    price: 4.50,
-    category: 'pastry',
-    description: 'A decadent slice of our daily featured cake, freshly sourced from local bakeries.',
-    image: '/src/assets/images/dandelion_display_pastries_1783627772746.jpg',
-    tags: ['Gourmet', 'Slice of Heaven']
-  },
-
-  // Sweet Treats
-  {
-    id: 'sw1',
-    name: 'Warm Crepe',
-    price: 4.50,
-    category: 'sweet',
-    description: 'Delicate hand-folded crepe lightly dusted with powdered sugar and finished with a subtle sweet honey drizzle.',
-    image: '/src/assets/images/dandelion_sweet_crepe_1783627804644.jpg',
-    tags: ['Sweet Crepe', 'Warm']
-  },
-  {
-    id: 'sw2',
-    name: 'Cannoli-Stuffed Croissant',
-    price: 6.50,
-    category: 'sweet',
-    description: 'Signature buttery croissant sliced and piped full of sweet, chocolate-chip ricotta cannoli cream. Heavily dusted with powdered sugar.',
-    image: '/src/assets/images/dandelion_cannoli_croissant_1783628826182.jpg',
-    isBestSeller: true,
-    tags: ['Heavenly', 'Italian-American']
-  },
-  {
-    id: 'sw3',
-    name: 'Cannoli',
-    price: 3.25,
-    category: 'sweet',
-    description: 'A crisp, golden pastry shell filled to the brim with sweet, creamy ricotta and loaded with chocolate chips.',
-    image: '/src/assets/images/dandelion_cannoli_1783627815643.jpg',
-    tags: ['Authentic', 'Sweet Shell']
-  },
-  {
-    id: 'sw4',
-    name: 'Espresso Fudge Brownie',
-    price: 4.50,
-    category: 'sweet',
-    description: 'Dense, intensely rich chocolate fudge brownie baked with a reduction of our signature heritage espresso.',
-    image: '/src/assets/images/dandelion_chocolate_brownie_1783627825285.jpg',
-    tags: ['Rich', 'Fudge Brownie']
-  },
-  {
-    id: 'sw5',
-    name: 'Add a Vanilla Gelato',
-    price: 2.50,
-    category: 'sweet',
-    description: 'A scoop of premium, velvety-smooth authentic Italian vanilla gelato. Perfect to top your crepe, brownie, or cake!',
-    image: '/src/assets/images/dandelion_vanilla_gelato_1783628835180.jpg',
-    tags: ['Gelato Topping', 'Cool & Creamy']
-  }
-];
+import { Search, Coffee, Leaf, Croissant, Utensils, CupSoda, Cookie, Trash2, Plus, Star } from 'lucide-react';
+import { useSiteConfig } from '../context/SiteConfigContext';
+import EditableText from './EditableText';
 
 const CATEGORIES = [
   { id: 'all', name: 'Full Menu', icon: Coffee },
@@ -218,16 +14,43 @@ const CATEGORIES = [
 ];
 
 export default function Menu() {
+  const { siteConfig, updateMenuItem, addMenuItem, deleteMenuItem, isAdmin } = useSiteConfig();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredItems = MENU_ITEMS.filter((item) => {
+  // Add item form states
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newItemName, setNewItemName] = useState('');
+  const [newItemPrice, setNewItemPrice] = useState('4.50');
+  const [newItemDesc, setNewItemDesc] = useState('');
+  const [newItemCat, setNewItemCat] = useState<'coffee' | 'tea' | 'pastry' | 'specialty' | 'beverage' | 'sweet'>('coffee');
+
+  const filteredItems = siteConfig.menuItems.filter((item) => {
     const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           item.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
                           (item.tags && item.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())));
     return matchesCategory && matchesSearch;
   });
+
+  const handleAddNewItem = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newItemName.trim() || !newItemDesc.trim()) return;
+
+    addMenuItem({
+      name: newItemName,
+      price: parseFloat(newItemPrice) || 0,
+      description: newItemDesc,
+      category: newItemCat,
+      tags: ['New', 'Hand-Crafted'],
+      isBestSeller: false
+    });
+
+    setNewItemName('');
+    setNewItemPrice('4.50');
+    setNewItemDesc('');
+    setShowAddForm(false);
+  };
 
   return (
     <section id="menu" className="py-24 bg-white text-brand-brown">
@@ -286,90 +109,209 @@ export default function Menu() {
 
         {/* Menu Grid */}
         <AnimatePresence mode="popLayout">
-          {filteredItems.length > 0 ? (
-            <motion.div 
-              layout
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-            >
-              {filteredItems.map((item) => (
-                <motion.div
-                  layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3 }}
-                  key={item.id}
-                  className="bg-transparent hover:bg-brand-cream/15 p-6 border border-brand-gold/25 hover:border-brand-brown transition-all duration-300 flex flex-col justify-between group h-full rounded-xs"
-                >
-                  <div>
-                    {/* Image or Category Icon Holder */}
-                    <div className="relative rounded-xs overflow-hidden mb-5 bg-brand-cream aspect-video flex items-center justify-center border border-brand-brown/5">
-                      {item.image ? (
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                          referrerPolicy="no-referrer"
-                        />
-                      ) : (
-                        <div className="flex flex-col items-center justify-center p-6 text-brand-brown/30">
-                          <Coffee className="h-8 w-8 mb-1.5 stroke-1" />
-                          <span className="text-[9px] uppercase tracking-[0.15em] font-bold">{item.category}</span>
-                        </div>
-                      )}
-                      
-                      {/* Best Seller Badge */}
-                      {item.isBestSeller && (
-                        <div className="absolute top-3 right-3 bg-brand-green/10 backdrop-blur-xs border border-brand-green text-brand-green font-sans text-[8px] font-bold px-2 py-0.5 rounded-xs uppercase tracking-[0.15em]">
-                          <span>Best Seller</span>
-                        </div>
-                      )}
+          <motion.div 
+            layout
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {/* If Admin: Add New Item Dashed Card */}
+            {isAdmin && (
+              <div className="bg-brand-cream/5 border-2 border-dashed border-brand-gold/50 hover:border-brand-brown p-6 transition-all duration-300 flex flex-col items-center justify-center min-h-[300px] text-center rounded-xs">
+                {!showAddForm ? (
+                  <button
+                    onClick={() => setShowAddForm(true)}
+                    className="flex flex-col items-center gap-3 text-brand-brown hover:text-brand-gold-dark transition-all font-sans text-xs uppercase tracking-widest font-black cursor-pointer bg-transparent border-none"
+                  >
+                    <span className="p-3.5 bg-brand-brown text-brand-cream hover:bg-brand-gold hover:text-brand-brown transition-all rounded-xs">
+                      <Plus className="h-6 w-6" />
+                    </span>
+                    <span>Add Menu Creation</span>
+                  </button>
+                ) : (
+                  <form onSubmit={handleAddNewItem} className="w-full space-y-3 text-left">
+                    <h4 className="font-serif font-black text-xs uppercase tracking-wider text-brand-brown mb-2 text-center border-b border-brand-gold/20 pb-2">
+                      New Craft Creation
+                    </h4>
+                    
+                    <div>
+                      <label className="block text-[8px] uppercase tracking-wider font-bold text-brand-brown/70 mb-1">Name</label>
+                      <input
+                        type="text"
+                        required
+                        value={newItemName}
+                        onChange={(e) => setNewItemName(e.target.value)}
+                        className="w-full px-2 py-1 bg-white border border-brand-gold/30 text-xs text-brand-brown focus:outline-none"
+                        placeholder="e.g. Lavender Latte"
+                      />
                     </div>
 
-                    {/* Tags */}
-                    {item.tags && (
-                      <div className="flex flex-wrap gap-1.5 mb-3.5">
-                        {item.tags.map((tag) => (
-                          <span key={tag} className="px-2 py-0.5 bg-brand-brown/5 text-brand-brown/65 font-sans text-[8px] font-bold rounded-xs uppercase tracking-widest border border-brand-brown/5">
-                            {tag}
-                          </span>
-                        ))}
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className="block text-[8px] uppercase tracking-wider font-bold text-brand-brown/70 mb-1">Price ($)</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          required
+                          value={newItemPrice}
+                          onChange={(e) => setNewItemPrice(e.target.value)}
+                          className="w-full px-2 py-1 bg-white border border-brand-gold/30 text-xs text-brand-brown focus:outline-none"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[8px] uppercase tracking-wider font-bold text-brand-brown/70 mb-1">Category</label>
+                        <select
+                          value={newItemCat}
+                          onChange={(e) => setNewItemCat(e.target.value as any)}
+                          className="w-full px-1.5 py-1.5 bg-white border border-brand-gold/30 text-[9px] text-brand-brown uppercase font-bold focus:outline-none"
+                        >
+                          <option value="coffee">Coffee</option>
+                          <option value="tea">Tea</option>
+                          <option value="pastry">Pastry</option>
+                          <option value="specialty">Specialty</option>
+                          <option value="sweet">Sweet</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-[8px] uppercase tracking-wider font-bold text-brand-brown/70 mb-1">Description</label>
+                      <textarea
+                        required
+                        value={newItemDesc}
+                        onChange={(e) => setNewItemDesc(e.target.value)}
+                        className="w-full p-2 bg-white border border-brand-gold/30 text-xs text-brand-brown focus:outline-none"
+                        rows={2}
+                        placeholder="e.g. Blended with lavender syrup and microfoam."
+                      />
+                    </div>
+
+                    <div className="flex gap-2 pt-1 text-[8px] uppercase font-bold tracking-wider">
+                      <button
+                        type="submit"
+                        className="flex-1 py-1.5 bg-brand-brown hover:bg-brand-brown/90 text-brand-cream transition-all cursor-pointer text-center"
+                      >
+                        Save
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowAddForm(false)}
+                        className="flex-1 py-1.5 bg-brand-cream border border-brand-gold/30 text-brand-brown hover:bg-brand-brown/5 transition-all cursor-pointer text-center"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </form>
+                )}
+              </div>
+            )}
+
+            {filteredItems.map((item) => (
+              <motion.div
+                layout
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+                key={item.id}
+                className="bg-transparent hover:bg-brand-cream/15 p-6 border border-brand-gold/25 hover:border-brand-brown transition-all duration-300 flex flex-col justify-between group h-full rounded-xs relative"
+              >
+                <div>
+                  {/* Image or Category Icon Holder */}
+                  <div className="relative rounded-xs overflow-hidden mb-5 bg-brand-cream aspect-video flex items-center justify-center border border-brand-brown/5">
+                    {item.image ? (
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="flex flex-col items-center justify-center p-6 text-brand-brown/30">
+                        <Coffee className="h-8 w-8 mb-1.5 stroke-1" />
+                        <span className="text-[9px] uppercase tracking-[0.15em] font-bold">{item.category}</span>
                       </div>
                     )}
-
-                    {/* Title & Price */}
-                    <div className="flex items-start justify-between gap-3 mb-2">
-                      <h3 className="font-serif font-black text-base sm:text-lg text-brand-brown uppercase tracking-tight group-hover:text-brand-gold-dark transition-colors duration-200 leading-tight">
-                        {item.name}
-                      </h3>
-                      <span className="font-serif font-black text-sm text-brand-brown whitespace-nowrap pt-0.5 border-b border-brand-gold/60">
-                        ${item.price.toFixed(2)}
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="font-sans text-xs text-brand-brown/70 leading-relaxed italic">
-                      {item.description}
-                    </p>
+                    
+                    {/* Best Seller Badge */}
+                    {item.isBestSeller && (
+                      <div className="absolute top-3 right-3 bg-brand-green/10 backdrop-blur-xs border border-brand-green text-brand-green font-sans text-[8px] font-bold px-2 py-0.5 rounded-xs uppercase tracking-[0.15em] z-10">
+                        <span>Best Seller</span>
+                      </div>
+                    )}
                   </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          ) : (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-16 bg-brand-cream/20 rounded-3xl border border-dashed border-brand-brown/20"
-            >
-              <p className="font-serif text-lg text-brand-brown/60">No delicious bites found matching "{searchQuery}"</p>
-              <button
-                onClick={() => { setSearchQuery(''); setSelectedCategory('all'); }}
-                className="mt-4 px-5 py-2 bg-brand-brown text-brand-cream rounded-full text-xs font-semibold"
-              >
-                Reset Filters
-              </button>
-            </motion.div>
-          )}
+
+                  {/* Tags */}
+                  {item.tags && (
+                    <div className="flex flex-wrap gap-1.5 mb-3.5">
+                      {item.tags.map((tag) => (
+                        <span key={tag} className="px-2 py-0.5 bg-brand-brown/5 text-brand-brown/65 font-sans text-[8px] font-bold rounded-xs uppercase tracking-widest border border-brand-brown/5">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Title & Price */}
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <h3 className="font-serif font-black text-base sm:text-lg text-brand-brown uppercase tracking-tight group-hover:text-brand-gold-dark transition-colors duration-200 leading-tight">
+                      <EditableText
+                        value={item.name}
+                        onSave={(newName) => updateMenuItem({ ...item, name: newName })}
+                        className="text-left font-serif font-black"
+                      />
+                    </h3>
+                    <span className="font-serif font-black text-sm text-brand-brown whitespace-nowrap pt-0.5 border-b border-brand-gold/60">
+                      $
+                      <EditableText
+                        value={item.price.toFixed(2)}
+                        type="number"
+                        onSave={(newPrice) => updateMenuItem({ ...item, price: parseFloat(newPrice) || 0 })}
+                        className="inline-block font-serif font-black"
+                      />
+                    </span>
+                  </div>
+
+                  {/* Description */}
+                  <p className="font-sans text-xs text-brand-brown/70 leading-relaxed italic mt-2">
+                    <EditableText
+                      value={item.description}
+                      onSave={(newDesc) => updateMenuItem({ ...item, description: newDesc })}
+                      className="text-left w-full"
+                      multiline
+                    />
+                  </p>
+                </div>
+
+                {/* Admin Management Tools */}
+                {isAdmin && (
+                  <div className="mt-5 pt-3 border-t border-brand-gold/20 flex items-center justify-between text-[9px] uppercase font-bold tracking-widest text-brand-brown/50">
+                    <button
+                      onClick={() => updateMenuItem({ ...item, isBestSeller: !item.isBestSeller })}
+                      className={`flex items-center gap-1 cursor-pointer transition-all ${
+                        item.isBestSeller ? 'text-brand-gold-dark font-black' : 'text-brand-brown/40 hover:text-brand-brown'
+                      }`}
+                      title="Toggle Best Seller ribbon"
+                    >
+                      <Star className={`h-3.5 w-3.5 ${item.isBestSeller ? 'fill-brand-gold text-brand-gold-dark' : ''}`} />
+                      <span>{item.isBestSeller ? 'Featured' : 'Feature'}</span>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        if (window.confirm(`Are you sure you want to delete "${item.name}" from the menu?`)) {
+                          deleteMenuItem(item.id);
+                        }
+                      }}
+                      className="flex items-center gap-1 text-brand-terracotta/60 hover:text-brand-terracotta cursor-pointer transition-colors"
+                      title="Remove from menu"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </motion.div>
         </AnimatePresence>
 
       </div>

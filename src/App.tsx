@@ -9,6 +9,10 @@ import LocationHours from './components/LocationHours';
 import Footer from './components/Footer';
 import SmsModal from './components/SmsModal';
 import { Review } from './types';
+import { useSiteConfig } from './context/SiteConfigContext';
+import AdminBar from './components/AdminBar';
+import AdminLoginModal from './components/AdminLoginModal';
+import EditableText from './components/EditableText';
 
 // Seed initial authentic reviews from Google
 const INITIAL_REVIEWS: Review[] = [
@@ -65,8 +69,10 @@ const INITIAL_REVIEWS: Review[] = [
 ];
 
 export default function App() {
+  const { siteConfig, updateAlertBanner } = useSiteConfig();
   const [reviews, setReviews] = useState<Review[]>(INITIAL_REVIEWS);
   const [isSmsOpen, setIsSmsOpen] = useState(false);
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
   
   const handleScrollToSection = (selector: string) => {
     const el = document.querySelector(selector);
@@ -85,11 +91,28 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-brand-cream text-brand-brown font-sans selection:bg-brand-gold selection:text-brand-brown antialiased scroll-smooth">
-      {/* Navigation Sticky Glass Bar */}
-      <Navbar onTextClick={() => setIsSmsOpen(true)} />
+    <div className="min-h-screen bg-brand-cream text-brand-brown font-sans selection:bg-brand-gold selection:text-brand-brown antialiased scroll-smooth flex flex-col">
+      {/* CMS Top Admin Dashboard */}
+      <AdminBar />
 
-      <main>
+      {/* Dynamic Customizable Promo Banner */}
+      {siteConfig.alertBanner.active && (
+        <div className="bg-brand-gold text-brand-brown py-2.5 px-4 text-center text-[10px] uppercase tracking-[0.2em] font-black relative flex items-center justify-center border-b border-brand-gold-dark/20 z-40">
+          <EditableText
+            value={siteConfig.alertBanner.message}
+            onSave={(newMsg) => updateAlertBanner(newMsg, true)}
+            className="w-full text-center"
+          />
+        </div>
+      )}
+
+      {/* Navigation Sticky Glass Bar */}
+      <Navbar 
+        onTextClick={() => setIsSmsOpen(true)} 
+        onAdminClick={() => setIsAdminLoginOpen(true)}
+      />
+
+      <main className="flex-1">
         {/* Hero Banner Section */}
         <Hero 
           onMenuClick={() => handleScrollToSection('#menu')}
@@ -116,10 +139,16 @@ export default function App() {
       </main>
 
       {/* Footer Directory and Newsletter Form */}
-      <Footer onTextClick={() => setIsSmsOpen(true)} />
+      <Footer 
+        onTextClick={() => setIsSmsOpen(true)} 
+        onAdminClick={() => setIsAdminLoginOpen(true)}
+      />
 
       {/* Real-time SMS Interactive Contact Modal */}
       <SmsModal isOpen={isSmsOpen} onClose={() => setIsSmsOpen(false)} />
+
+      {/* Admin Passcode Login Modal */}
+      <AdminLoginModal isOpen={isAdminLoginOpen} onClose={() => setIsAdminLoginOpen(false)} />
     </div>
   );
 }

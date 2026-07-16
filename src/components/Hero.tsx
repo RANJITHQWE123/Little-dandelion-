@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { Sparkles, MapPin, Phone, MessageSquare } from 'lucide-react';
+import { useSiteConfig } from '../context/SiteConfigContext';
+import EditableText from './EditableText';
 
 interface HeroProps {
   onMenuClick: () => void;
@@ -8,6 +10,7 @@ interface HeroProps {
 }
 
 export default function Hero({ onMenuClick, onTextClick }: HeroProps) {
+  const { siteConfig, updateHero } = useSiteConfig();
   // Stunning, cozy, high-quality cafe exterior on Unsplash with absolutely no text or fake years
   const bgImg = "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&q=80&w=2000";
 
@@ -47,14 +50,22 @@ export default function Hero({ onMenuClick, onTextClick }: HeroProps) {
           </p>
 
           {/* Main Title */}
-          <h1 className="font-serif text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tighter mb-4 drop-shadow-sm leading-[0.85]">
-            The Little<br />
-            <span className="text-brand-cream/95">Dandelion</span>
+          <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter mb-4 drop-shadow-sm leading-[0.9] text-brand-cream/95">
+            <EditableText
+              value={siteConfig.hero.title}
+              onSave={(newTitle) => updateHero(newTitle, siteConfig.hero.subtitle)}
+              className="w-full text-left"
+            />
           </h1>
 
           {/* Subtitle */}
           <p className="font-serif italic text-xl sm:text-2xl text-brand-gold/90 font-medium tracking-wide mb-5">
-            "A cozy Mom & Pop sanctuary in the heart of Little Italy"
+            <EditableText
+              value={siteConfig.hero.subtitle}
+              onSave={(newSubtitle) => updateHero(siteConfig.hero.title, newSubtitle)}
+              className="w-full text-left"
+              multiline
+            />
           </p>
 
           <p className="font-sans text-xs sm:text-sm text-brand-cream/80 max-w-xl mb-10 leading-relaxed tracking-wide uppercase">

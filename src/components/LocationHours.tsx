@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MapPin, Clock, Phone, Globe, Compass, CheckCircle, Navigation, Info } from 'lucide-react';
+import { useSiteConfig } from '../context/SiteConfigContext';
+import EditableText from './EditableText';
 
 interface RouteInfo {
   landmark: string;
@@ -15,6 +17,7 @@ interface LocationHoursProps {
 }
 
 export default function LocationHours({ onTextClick }: LocationHoursProps) {
+  const { siteConfig, updateHours, updateContact } = useSiteConfig();
   const [selectedRoute, setSelectedRoute] = useState<string>('yale');
 
   const routes: Record<string, RouteInfo> = {
@@ -111,7 +114,13 @@ export default function LocationHours({ onTextClick }: LocationHoursProps) {
                   </div>
                   <div>
                     <p className="text-[10px] uppercase tracking-wider font-bold text-brand-brown">Our Address</p>
-                    <p className="text-brand-brown/75 mt-0.5">208 Wooster St, New Haven, CT 06511-5792</p>
+                    <p className="text-brand-brown/75 mt-0.5">
+                      <EditableText
+                        value={siteConfig.contact.address}
+                        onSave={(newAddr) => updateContact(siteConfig.contact.phone, siteConfig.contact.email, newAddr)}
+                        className="text-brand-brown/75"
+                      />
+                    </p>
                     <span className="text-[9px] uppercase font-bold text-brand-gold-dark tracking-widest block mt-1">Heart of Little Italy</span>
                   </div>
                 </div>
@@ -123,12 +132,13 @@ export default function LocationHours({ onTextClick }: LocationHoursProps) {
                   <div>
                     <p className="text-[10px] uppercase tracking-wider font-bold text-brand-brown">Call or Text Us</p>
                     <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-1">
-                      <a 
-                        href="tel:8177930381" 
-                        className="bg-brand-brown hover:bg-brand-gold text-white hover:text-brand-brown px-3 py-1 text-[11px] uppercase tracking-wider font-bold transition-all inline-flex items-center gap-1"
-                      >
-                        (817) 793-0381
-                      </a>
+                      <span className="bg-brand-brown hover:bg-brand-gold text-white hover:text-brand-brown px-3 py-1 text-[11px] uppercase tracking-wider font-bold transition-all inline-flex items-center gap-1">
+                        <EditableText
+                          value={siteConfig.contact.phone}
+                          onSave={(newPhone) => updateContact(newPhone, siteConfig.contact.email, siteConfig.contact.address)}
+                          className="text-white hover:text-brand-brown"
+                        />
+                      </span>
                       <span className="text-brand-brown/30 hidden sm:inline">|</span>
                       <button
                         onClick={onTextClick}
@@ -150,24 +160,32 @@ export default function LocationHours({ onTextClick }: LocationHoursProps) {
               </h3>
               
               <div className="space-y-3.5 font-sans text-xs sm:text-sm">
-                <div className="flex justify-between items-center border-b border-white/10 pb-2 text-white/50 italic">
-                  <span className="font-bold uppercase tracking-wider text-[10px]">Monday</span>
-                  <span className="font-bold text-brand-terracotta uppercase tracking-widest text-[9px] bg-brand-terracotta/15 px-2.5 py-0.5 rounded-none">Closed</span>
-                </div>
-                
-                {[
-                  { day: 'Tuesday', hours: '10:30 AM – 7:00 PM' },
-                  { day: 'Wednesday', hours: '10:30 AM – 7:00 PM' },
-                  { day: 'Thursday', hours: '10:30 AM – 7:00 PM' },
-                  { day: 'Friday', hours: '10:30 AM – 7:00 PM' },
-                  { day: 'Saturday', hours: '10:30 AM – 7:00 PM' },
-                  { day: 'Sunday', hours: '10:30 AM – 7:00 PM' },
-                ].map((row) => (
-                  <div key={row.day} className="flex justify-between items-center border-b border-white/5 pb-2">
-                    <span className="font-bold text-brand-cream uppercase tracking-wider text-[10px]">{row.day}</span>
-                    <span className="font-bold text-brand-gold uppercase tracking-wider text-[10px]">{row.hours}</span>
-                  </div>
-                ))}
+                {Object.entries(siteConfig.hours).map(([day, val]) => {
+                  const hours = val as string;
+                  const isClosed = hours.trim().toLowerCase() === 'closed';
+                  return (
+                    <div key={day} className="flex justify-between items-center border-b border-white/5 pb-2">
+                      <span className="font-bold text-brand-cream uppercase tracking-wider text-[10px]">{day}</span>
+                      {isClosed ? (
+                        <span className="font-bold text-brand-terracotta uppercase tracking-widest text-[9px] bg-brand-terracotta/15 px-2.5 py-0.5 rounded-none">
+                          <EditableText
+                            value={hours}
+                            onSave={(newHours) => updateHours({ ...siteConfig.hours, [day]: newHours })}
+                            className="text-brand-terracotta"
+                          />
+                        </span>
+                      ) : (
+                        <span className="font-bold text-brand-gold uppercase tracking-wider text-[10px]">
+                          <EditableText
+                            value={hours}
+                            onSave={(newHours) => updateHours({ ...siteConfig.hours, [day]: newHours })}
+                            className="text-brand-gold"
+                          />
+                        </span>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
 
               <div className="mt-5 p-3.5 bg-white/5 rounded-none border border-white/10 flex items-start gap-2.5">

@@ -3,9 +3,10 @@ import { Mail, ArrowRight, Instagram, MessageSquare, ExternalLink, ShieldCheck, 
 
 interface FooterProps {
   onTextClick: () => void;
+  onAdminClick?: () => void;
 }
 
-export default function Footer({ onTextClick }: FooterProps) {
+export default function Footer({ onTextClick, onAdminClick }: FooterProps) {
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
@@ -170,8 +171,15 @@ export default function Footer({ onTextClick }: FooterProps) {
             <p>© 2026 The Little Dandelion Café. All rights reserved. Nestled in New Haven, Connecticut.</p>
           </div>
           <div className="flex items-center gap-4">
-            <a href="#privacy" className="hover:text-white transition-colors flex items-center gap-1">
-              <ShieldCheck className="h-3.5 w-3.5" />
+            <button
+              onClick={onAdminClick}
+              className="hover:text-white text-brand-cream/50 transition-colors flex items-center gap-1 cursor-pointer bg-transparent border-none p-0 inline-flex focus:outline-none"
+            >
+              <ShieldCheck className="h-3.5 w-3.5 text-brand-gold" />
+              Admin Portal
+            </button>
+            <span className="text-white/15">|</span>
+            <a href="#privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </a>
             <span className="text-white/15">|</span>

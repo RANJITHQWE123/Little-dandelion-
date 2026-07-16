@@ -1,8 +1,11 @@
 import React from 'react';
 import { Heart, Sparkles, Award } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useSiteConfig } from '../context/SiteConfigContext';
+import EditableText from './EditableText';
 
 export default function About() {
+  const { siteConfig, updateStory } = useSiteConfig();
   const artworkImg = "/src/assets/images/daughter_dandelion_art_1783625856484.jpg";
 
   return (
@@ -20,24 +23,31 @@ export default function About() {
             >
               {/* Overtitle */}
               <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-brand-green block mb-3">Our Heritage</span>
-              <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl font-black uppercase tracking-tight mb-8 leading-tight">
-                New Haven’s <br />
-                <span className="text-brand-gold font-light italic normal-case">Mom & Pop Sanctuary</span>
+              <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight mb-8 leading-tight text-brand-brown">
+                <EditableText
+                  value={siteConfig.story.title}
+                  onSave={(newTitle) => updateStory(newTitle, siteConfig.story.paragraph1, siteConfig.story.paragraph2)}
+                  className="w-full text-left"
+                />
               </h2>
 
               <div className="space-y-6 text-brand-brown/90 font-sans text-xs sm:text-sm uppercase tracking-wide leading-relaxed">
-                <p className="font-bold text-base text-brand-brown tracking-normal normal-case">
-                  Come experience the charm of a cozy, independent New York Style Mom & Pop nestled in the heart of Little Italy!
-                </p>
-                <p className="normal-case tracking-normal text-sm sm:text-base text-brand-brown/80">
-                  Our café is lovingly owned & operated by a passionate Italian-American resident of New Haven. Every detail is personal, representing decades of neighborly love, local craftsmanship, and a deep-rooted commitment to hospitality.
-                </p>
-                <p className="normal-case tracking-normal text-sm sm:text-base text-brand-brown/80">
-                  We are proud to partner with local craft institutions like <strong className="text-brand-brown">SoNo Baking Company</strong> and artisanal local purveyors. From our daily-toasted gourmet bagels to our frothy lattes and melt-in-your-mouth cannoli-stuffed croissants, everything we serve is selected with absolute dedication to premium flavor.
-                </p>
-                <p className="normal-case tracking-normal text-sm sm:text-base text-brand-brown/80">
-                  To us, coffee isn’t just a quick caffeine fix—it’s a ritual. Our expert baristas pour love, precision, and passion into every single cup. Whether you are here for a solitary working afternoon, meeting a long-lost friend, or stopping by with your dog, you are part of our family.
-                </p>
+                <div className="font-bold text-base text-brand-brown tracking-normal normal-case">
+                  <EditableText
+                    value={siteConfig.story.paragraph1}
+                    onSave={(newP1) => updateStory(siteConfig.story.title, newP1, siteConfig.story.paragraph2)}
+                    className="w-full text-left"
+                    multiline
+                  />
+                </div>
+                <div className="normal-case tracking-normal text-sm sm:text-base text-brand-brown/80">
+                  <EditableText
+                    value={siteConfig.story.paragraph2}
+                    onSave={(newP2) => updateStory(siteConfig.story.title, siteConfig.story.paragraph1, newP2)}
+                    className="w-full text-left"
+                    multiline
+                  />
+                </div>
               </div>
 
               {/* Custom Icon Highlights as Editorial Grid List */}
