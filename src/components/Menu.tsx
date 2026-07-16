@@ -219,7 +219,11 @@ export default function Menu() {
                   <div className="relative rounded-xs overflow-hidden mb-5 bg-brand-cream aspect-video flex items-center justify-center border border-brand-brown/5">
                     {item.image ? (
                       <img
-                        src={item.image}
+                        src={
+                          item.image.startsWith('http') || item.image.startsWith('data:')
+                            ? item.image
+                            : ('/' + item.image).replace(/\/+/g, '/').replace('/src/assets/', '/assets/')
+                        }
                         alt={item.name}
                         className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                         referrerPolicy="no-referrer"

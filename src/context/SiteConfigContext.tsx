@@ -22,6 +22,31 @@ interface SiteConfigContextType {
 
 const SiteConfigContext = createContext<SiteConfigContextType | undefined>(undefined);
 
+// Helper to sanitize image paths to ensure they load from the public assets directory
+function sanitizeImagePath(path: string | undefined): string | undefined {
+  if (!path) return path;
+  let p = path.trim();
+  // Keep external URLs intact
+  if (p.startsWith('http://') || p.startsWith('https://') || p.startsWith('data:')) {
+    return p;
+  }
+  // Remove leading ./ if present
+  if (p.startsWith('./')) {
+    p = p.substring(2);
+  }
+  // Replace any reference to src/assets with public assets path
+  if (p.includes('src/assets/')) {
+    p = p.replace(/.*src\/assets\//, '/assets/');
+  }
+  // Ensure we have a leading slash for assets paths
+  if (p.startsWith('assets/')) {
+    p = '/' + p;
+  }
+  // Collapse any duplicate slashes
+  p = p.replace(/\/+/g, '/');
+  return p;
+}
+
 export function SiteConfigProvider({ children }: { children: React.ReactNode }) {
   const [siteConfig, setSiteConfig] = useState<SiteConfig>(DEFAULT_SITE_CONFIG);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -33,20 +58,13 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
       if (storedConfig) {
         const parsed = JSON.parse(storedConfig);
         let wasMigrated = false;
-        // Migrate old image paths if any exist in stored state
+        
+        // Migrate and sanitize image paths if any exist in stored state
         if (parsed && Array.isArray(parsed.menuItems)) {
           parsed.menuItems = parsed.menuItems.map((item: any) => {
             if (item.image && typeof item.image === 'string') {
-              let currentImage = item.image;
-              let updatedImage = currentImage;
-
-              if (updatedImage.startsWith('/src/assets/')) {
-                updatedImage = updatedImage.replace('/src/assets/', '/assets/');
-              } else if (updatedImage.startsWith('src/assets/')) {
-                updatedImage = '/' + updatedImage.replace('src/assets/', 'assets/');
-              } else if (updatedImage.startsWith('assets/')) {
-                updatedImage = '/' + updatedImage;
-              }
+              const currentImage = item.image;
+              const updatedImage = sanitizeImagePath(currentImage);
 
               if (updatedImage !== currentImage) {
                 wasMigrated = true;
@@ -159,8 +177,12 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
 
   const updateMenuItem = (updatedItem: MenuItem) => {
     setSiteConfig((prev) => {
+      const sanitizedItem = {
+        ...updatedItem,
+        image: sanitizeImagePath(updatedItem.image)
+      };
       const updatedItems = prev.menuItems.map((item) =>
-        item.id === updatedItem.id ? updatedItem : item
+        item.id === sanitizedItem.id ? sanitizedItem : item
       );
       const updated = {
         ...prev,
@@ -176,7 +198,8 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
       const newId = `custom_${Date.now()}`;
       const itemWithId: MenuItem = {
         ...newItem,
-        id: newId
+        id: newId,
+        image: sanitizeImagePath(newItem.image)
       };
       const updated = {
         ...prev,
