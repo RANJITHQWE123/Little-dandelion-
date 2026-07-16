@@ -246,8 +246,10 @@ export default function Menu() {
                       className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
                       referrerPolicy="no-referrer"
                       onError={(event) => {
-                        event.currentTarget.onerror = null;
-                        event.currentTarget.src = getFallbackMenuImage(item.category);
+                        const image = event.currentTarget;
+                        if (image.dataset.fallbackApplied === 'true') return;
+                        image.dataset.fallbackApplied = 'true';
+                        image.src = getFallbackMenuImage(item.category);
                       }}
                     />
                     
