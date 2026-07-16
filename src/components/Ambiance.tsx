@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { Sparkles, Compass, HelpCircle, Heart, Wifi, Coffee, Users } from 'lucide-react';
 
 export default function Ambiance() {
-  const interiorImg = "/src/assets/images/dandelion_cafe_interior_1783628687250.jpg";
+  const interiorImg = "/assets/images/dandelion_cafe_interior_1783628687250.jpg";
 
   const features = [
     {

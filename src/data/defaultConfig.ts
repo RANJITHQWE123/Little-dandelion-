@@ -36,7 +36,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 3.25,
       category: 'coffee',
       description: 'Rich, intense, double-shot of our heritage espresso blend. Perfectly extracted with thick hazelnut crema.',
-      image: '/src/assets/images/dandelion_espresso_shot_1783629595611.jpg',
+      image: '/assets/images/dandelion_espresso_shot_1783629595611.jpg',
       tags: ['Double Shot', 'Traditional']
     },
     {
@@ -45,7 +45,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 3.75,
       category: 'coffee',
       description: 'Equal parts double shot espresso and steamed silky milk, cutting the acidity beautifully.',
-      image: '/src/assets/images/dandelion_cortado_glass_1783629608541.jpg',
+      image: '/assets/images/dandelion_cortado_glass_1783629608541.jpg',
       tags: ['Balanced', 'Barista Fav']
     },
     {
@@ -54,7 +54,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 4.75,
       category: 'coffee',
       description: 'Our house espresso with velvety steamed milk and a delicate layer of microfoam.',
-      image: '/src/assets/images/dandelion_cafe_latte_1783629617581.jpg',
+      image: '/assets/images/dandelion_cafe_latte_1783629617581.jpg',
       tags: ['Smooth', 'Classic']
     },
     {
@@ -64,7 +64,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       category: 'coffee',
       description: 'Infused with organic local wildflower honey, French lavender, and a dash of dandelion root powder. Topped with blowing dandelion latte art.',
       isBestSeller: true,
-      image: '/src/assets/images/dandelion_cafe_latte_1783629617581.jpg',
+      image: '/assets/images/dandelion_cafe_latte_1783629617581.jpg',
       tags: ['Signature', 'Latte Art']
     },
     {
@@ -73,7 +73,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 4.50,
       category: 'coffee',
       description: 'Double espresso with equal parts rich steamed milk and a luxurious cushion of dense foam.',
-      image: '/src/assets/images/dandelion_cappuccino_froth_1783629627490.jpg',
+      image: '/assets/images/dandelion_cappuccino_froth_1783629627490.jpg',
       tags: ['Frothy', 'Classic']
     },
     {
@@ -82,7 +82,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 4.50,
       category: 'coffee',
       description: 'Rich ristretto shots finished with micro-textured steamed milk for a dense, velvety mouthfeel.',
-      image: '/src/assets/images/dandelion_flat_white_1783629660503.jpg',
+      image: '/assets/images/dandelion_flat_white_1783629660503.jpg',
       tags: ['Velvety', 'Bold']
     },
     {
@@ -91,7 +91,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 3.50,
       category: 'tea',
       description: 'Premium organic whole leaves. Select from Earl Grey, Chamomile Lavender, or Jasmine Green.',
-      image: '/src/assets/images/dandelion_hot_tea_1783629649611.jpg',
+      image: '/assets/images/dandelion_hot_tea_1783629649611.jpg',
       tags: ['Organic', 'Hot']
     },
     {
@@ -100,7 +100,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 5.25,
       category: 'tea',
       description: 'Whip-whisked Uji stone-ground matcha blended with creamy steamed oat milk and organic vanilla.',
-      image: '/src/assets/images/dandelion_dirty_matcha_1783629639993.jpg',
+      image: '/assets/images/dandelion_dirty_matcha_1783629639993.jpg',
       tags: ['Antioxidants', 'Oat Milk']
     },
     {
@@ -109,7 +109,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 4.75,
       category: 'tea',
       description: 'Sweet & spicy black tea concentrate infused with fresh ginger, cardamom, clove, and steamed milk.',
-      image: '/src/assets/images/dandelion_hot_tea_1783629649611.jpg',
+      image: '/assets/images/dandelion_hot_tea_1783629649611.jpg',
       tags: ['Spicy', 'Comfort']
     },
     {
@@ -118,7 +118,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 5.95,
       category: 'tea',
       description: 'Ceremonial green matcha latte with a robust double-shot overlay of house espresso.',
-      image: '/src/assets/images/dandelion_dirty_matcha_1783629639993.jpg',
+      image: '/assets/images/dandelion_dirty_matcha_1783629639993.jpg',
       tags: ['Energy Boost', 'Layered']
     },
     {
@@ -127,7 +127,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 8.50,
       category: 'specialty',
       description: 'Toasted plain, everything, or sesame bagel, croissant, or sourdough bread stuffed with organic eggs, melted Swiss, Cheddar, or Provolone cheese.',
-      image: '/src/assets/images/dandelion_egg_cheese_bagel_1783627790275.jpg',
+      image: '/assets/images/dandelion_egg_cheese_bagel_1783627790275.jpg',
       isBestSeller: true,
       tags: ['Breakfast Classic', 'Custom Bread']
     },
@@ -137,7 +137,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 9.50,
       category: 'specialty',
       description: 'Our standard toasted breakfast bagel sandwich packed with fluffy scrambled organic eggs, melted cheese, and savory sliced summer sausage.',
-      image: '/src/assets/images/dandelion_egg_sausage_bagel_1783628802341.jpg',
+      image: '/assets/images/dandelion_egg_sausage_bagel_1783628802341.jpg',
       tags: ['Savory', 'Summer Sausage']
     },
     {
@@ -146,7 +146,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 8.50,
       category: 'specialty',
       description: 'Artisanal sourdough stuffed with a premium melted blend of sharp white cheddar and provolone cheese, toasted beautifully golden-brown.',
-      image: '/src/assets/images/dandelion_grilled_cheese_1783627781365.jpg',
+      image: '/assets/images/dandelion_grilled_cheese_1783627781365.jpg',
       isBestSeller: true,
       tags: ['Comfort', 'Vegetarian']
     },
@@ -156,7 +156,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 6.50,
       category: 'specialty',
       description: 'Classic French style grilled ham and cheese sandwich on rustic toasted bread, with bubbly melted Gruyère cheese.',
-      image: '/src/assets/images/dandelion_croque_monsieur_1783628811252.jpg',
+      image: '/assets/images/dandelion_croque_monsieur_1783628811252.jpg',
       tags: ['French Classic', 'Warm ham & cheese']
     },
     {
@@ -165,7 +165,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 3.75,
       category: 'pastry',
       description: 'Buttery, flaky, golden French pastry baked fresh daily by our local partner, SoNo Baking Company.',
-      image: '/src/assets/images/fresh_pastries_tray_1783625868185.jpg',
+      image: '/assets/images/fresh_pastries_tray_1783625868185.jpg',
       tags: ['Fresh Daily', 'SoNo Baking']
     },
     {
@@ -174,7 +174,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 4.50,
       category: 'pastry',
       description: 'A decadent slice of our daily featured cake, freshly sourced from local bakeries.',
-      image: '/src/assets/images/dandelion_display_pastries_1783627772746.jpg',
+      image: '/assets/images/dandelion_display_pastries_1783627772746.jpg',
       tags: ['Gourmet', 'Slice of Heaven']
     },
     {
@@ -183,7 +183,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 4.50,
       category: 'sweet',
       description: 'Delicate hand-folded crepe lightly dusted with powdered sugar and finished with a subtle sweet honey drizzle.',
-      image: '/src/assets/images/dandelion_sweet_crepe_1783627804644.jpg',
+      image: '/assets/images/dandelion_sweet_crepe_1783627804644.jpg',
       tags: ['Sweet Crepe', 'Warm']
     },
     {
@@ -192,7 +192,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 6.50,
       category: 'sweet',
       description: 'Signature buttery croissant sliced and piped full of sweet, chocolate-chip ricotta cannoli cream. Heavily dusted with powdered sugar.',
-      image: '/src/assets/images/dandelion_cannoli_croissant_1783628826182.jpg',
+      image: '/assets/images/dandelion_cannoli_croissant_1783628826182.jpg',
       isBestSeller: true,
       tags: ['Heavenly', 'Italian-American']
     },
@@ -202,7 +202,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 3.25,
       category: 'sweet',
       description: 'A crisp, golden pastry shell filled to the brim with sweet, creamy ricotta and loaded with chocolate chips.',
-      image: '/src/assets/images/dandelion_cannoli_1783627815643.jpg',
+      image: '/assets/images/dandelion_cannoli_1783627815643.jpg',
       tags: ['Authentic', 'Sweet Shell']
     },
     {
@@ -211,7 +211,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 4.50,
       category: 'sweet',
       description: 'Dense, intensely rich chocolate fudge brownie baked with a reduction of our signature heritage espresso.',
-      image: '/src/assets/images/dandelion_chocolate_brownie_1783627825285.jpg',
+      image: '/assets/images/dandelion_chocolate_brownie_1783627825285.jpg',
       tags: ['Rich', 'Fudge Brownie']
     },
     {
@@ -220,7 +220,7 @@ export const DEFAULT_SITE_CONFIG: SiteConfig = {
       price: 2.50,
       category: 'sweet',
       description: 'A scoop of premium, velvety-smooth authentic Italian vanilla gelato. Perfect to top your crepe, brownie, or cake!',
-      image: '/src/assets/images/dandelion_vanilla_gelato_1783628835180.jpg',
+      image: '/assets/images/dandelion_vanilla_gelato_1783628835180.jpg',
       tags: ['Gelato Topping', 'Cool & Creamy']
     }
   ]

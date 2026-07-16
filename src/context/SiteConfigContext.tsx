@@ -31,7 +31,25 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
     try {
       const storedConfig = localStorage.getItem('dandelion_site_config');
       if (storedConfig) {
-        setSiteConfig(JSON.parse(storedConfig));
+        const parsed = JSON.parse(storedConfig);
+        let wasMigrated = false;
+        // Migrate old image paths if any exist in stored state
+        if (parsed && Array.isArray(parsed.menuItems)) {
+          parsed.menuItems = parsed.menuItems.map((item: any) => {
+            if (item.image && typeof item.image === 'string' && item.image.startsWith('/src/assets/')) {
+              wasMigrated = true;
+              return {
+                ...item,
+                image: item.image.replace('/src/assets/', '/assets/')
+              };
+            }
+            return item;
+          });
+        }
+        setSiteConfig(parsed);
+        if (wasMigrated) {
+          saveToLocalStorage(parsed);
+        }
       }
       
       const storedAdmin = localStorage.getItem('dandelion_is_admin');
