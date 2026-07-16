@@ -36,12 +36,20 @@ export function SiteConfigProvider({ children }: { children: React.ReactNode }) 
         // Migrate old image paths if any exist in stored state
         if (parsed && Array.isArray(parsed.menuItems)) {
           parsed.menuItems = parsed.menuItems.map((item: any) => {
-            if (item.image && typeof item.image === 'string' && item.image.startsWith('/src/assets/')) {
-              wasMigrated = true;
-              return {
-                ...item,
-                image: item.image.replace('/src/assets/', '/assets/')
-              };
+            if (item.image && typeof item.image === 'string') {
+              if (item.image.startsWith('/src/assets/')) {
+                wasMigrated = true;
+                return {
+                  ...item,
+                  image: item.image.replace('/src/assets/', 'assets/')
+                };
+              } else if (item.image.startsWith('/assets/')) {
+                wasMigrated = true;
+                return {
+                  ...item,
+                  image: item.image.replace('/assets/', 'assets/')
+                };
+              }
             }
             return item;
           });

@@ -6,7 +6,7 @@ import EditableText from './EditableText';
 
 export default function About() {
   const { siteConfig, updateStory } = useSiteConfig();
-  const artworkImg = "/assets/images/daughter_dandelion_art_1783625856484.jpg";
+  const artworkImg = "assets/images/daughter_dandelion_art_1783625856484.jpg";
 
   return (
     <section id="story" className="py-24 bg-brand-cream text-brand-brown border-b border-brand-gold/20 overflow-hidden">
